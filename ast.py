@@ -4,6 +4,7 @@ the necessary information for the interpretation
 of the BF code.
 """
 from lllexer import *
+import logging
 
 
 class AST:
@@ -14,6 +15,7 @@ class AST:
         if token_type is not None:
             self.token = Token(token_type, 0)
         self.children = None
+        self.logger = logging.getLogger(__name__)
 
     def __str__(self):
         if self.is_nil():
@@ -25,12 +27,13 @@ class AST:
         if self.children is None:
             self.children = []
         self.children.append(child)
+        self.logger.debug("Added child to AST {}".format(child))
 
     def is_nil(self):
         return self.token is None
 
     def str_tree(self):
-        """Print the AST using a depth first search"""
+        """Return a string of the AST using a depth first search"""
         if self.children is None or len(self.children) == 0:
             return self.__str__()
         str_tree = ""

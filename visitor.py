@@ -3,6 +3,7 @@ A simple visitor which can traverse a
 homogeneous AST.
 """
 from language import *
+import logging
 
 
 class ASTVisitor:
@@ -10,9 +11,10 @@ class ASTVisitor:
     def __init__(self):
         self.exec_list = [0]
         self.exec_ptr = 0
+        self.logger = logging.getLogger(__name__)
 
     def visit(self, node):
-        # print(node.token.token_type)
+        self.logger.debug("Visited {} node".format(node.token.token_type))
         if node.token.token_type == L_SHIFT:
             self._l_shift()
             self.visit_children(node)

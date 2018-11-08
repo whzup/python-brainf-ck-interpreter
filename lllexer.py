@@ -3,6 +3,7 @@ A LL(1) recursive descent lexer and the Token class
 used to tokenize the input.
 """
 from language import *
+import logging
 
 
 class Token:
@@ -25,9 +26,7 @@ class Lexer:
         self.pos = 0
         self.current_char = self.text[self.pos]
         self.token_list = []
-
-    def error(self):
-        raise Exception("Error tokenizing input")
+        self.logger = logging.getLogger(__name__)
 
     def consume(self):
         """
@@ -76,6 +75,7 @@ class Lexer:
         token = self.next_token()
         while token.token_type != EOF:
             self.token_list.append(token)
+            self.logger.debug("New token {}".format(token))
             # yield token
             token = self.next_token()
         self.token_list.append(token)

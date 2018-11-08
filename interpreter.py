@@ -5,6 +5,10 @@ the AST and interprets the code.
 """
 from llparser import *
 from visitor import *
+import logging
+
+FORMAT = '%(asctime)-15s - %(levelname)s |  %(message)s  '
+logging.basicConfig(format=FORMAT)
 
 
 class Interpreter:
